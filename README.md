@@ -81,6 +81,7 @@ AF-Net:
 
 ## Future Plans
 - Add more models for food classification.
+- 1
 
 ## License
 
