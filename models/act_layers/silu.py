@@ -8,6 +8,6 @@ class SiLU(nn.SiLU):
     def __init__(
             self,
             inplace: bool = False,
-            **kwargs
+            **kwargs,
     ) -> None:
         super(SiLU, self).__init__(inplace=inplace)
