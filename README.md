@@ -8,7 +8,7 @@ This project implements a food classification model using deep learning techniqu
 It contains the following models:
 - **MobileViTv2**: A lightweight model designed for mobile devices, optimized for speed and efficiency.
 - **EHFR-Net**: A model that combines Inverted Residual Blocks and LP-ViT for enhanced feature extraction and classification performance in food classification task.
-- **AF-Net**: A model that uses the aggregate operation and combines the shuffle module form GS-Net to improve classification accuracy for food classification task.
+- **AF-Net**: A model that uses the aggregate operation and combines the shuffle module from GS-Net to improve classification accuracy for food classification task.
 
 ## Installation
 
