@@ -43,8 +43,9 @@ pip install -r requirements.txt
 To start training the food classification model, you can run the following command:
 
 ```bash
-bash scripts/train.sh
+bash scripts/food101-af-net.sh
 ```
+You can define your own training script in the `scripts` directory. The training script should include the necessary commands to train the model, such as specifying the dataset, model name ect.
 
 ## Paper Cite
 If you find this project useful in your research, please consider citing:
