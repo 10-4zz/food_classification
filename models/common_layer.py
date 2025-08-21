@@ -6,6 +6,7 @@ from torch import Tensor
 from torch import nn as nn
 
 from .act_layers import get_act_layers
+from .norm_layers import get_norm_layers
 
 
 def auto_pad(k, p=None, d=1):  # kernel, padding, dilation
@@ -15,34 +16,6 @@ def auto_pad(k, p=None, d=1):  # kernel, padding, dilation
     if p is None:
         p = k // 2 if isinstance(k, int) else [x // 2 for x in k]  # auto-pad
     return p
-
-
-def get_norm_layer(num_features: int, norm_type: str = 'layer_norm_2d', num_groups: int = 1, momentum: float = 0.1):
-    if norm_type in ["batch_norm", "batch_norm_2d"]:
-        return nn.BatchNorm2d(num_features=num_features, momentum=momentum)
-    elif norm_type == "batch_norm_3d":
-        return nn.BatchNorm3d(num_features=num_features, momentum=momentum)
-    elif norm_type == "batch_norm_1d":
-        return nn.BatchNorm1d(num_features=num_features, momentum=momentum)
-    elif norm_type in ["sync_batch_norm", "sbn"]:
-        if torch.cuda.device_count() > 1:
-            return nn.SyncBatchNorm(num_features=num_features, momentum=momentum)
-        else:
-            return nn.BatchNorm2d(num_features=num_features, momentum=momentum)
-    elif norm_type in ["group_norm", "gn"]:
-        num_groups = math.gcd(num_features, num_groups)
-        return nn.GroupNorm(num_channels=num_features, num_groups=num_groups)
-    elif norm_type in ["instance_norm", "instance_norm_2d"]:
-        return nn.InstanceNorm2d(num_features=num_features, momentum=momentum)
-    elif norm_type == "instance_norm_1d":
-        return nn.InstanceNorm1d(num_features=num_features, momentum=momentum)
-    elif norm_type in ["layer_norm", "ln"]:
-        return nn.LayerNorm(num_features)
-    elif norm_type in ["layer_norm_2d"]:
-        return nn.GroupNorm(num_groups=1, num_channels=num_features)
-    elif norm_type == "identity":
-        return nn.Identity()
-    return nn.Identity()
 
 
 class GlobalPool(nn.Module):
@@ -259,7 +232,7 @@ class ShuffleConv(nn.Module):
                 groups=groups,
                 padding_mode=padding_mode,
             ),
-            get_norm_layer(num_features=out_channels, norm_type=norm_name) if use_norm else nn.Identity(),
+            get_norm_layers(num_features=out_channels, norm_name=norm_name) if use_norm else nn.Identity(),
             get_act_layers(act_name=act_name) if use_act else nn.Identity(),
         )
 

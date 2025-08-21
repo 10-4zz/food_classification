@@ -6,7 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .common_layer import (
-    get_norm_layer,
+    get_norm_layers,
     get_act_layers,
     auto_pad,
     GhostConv2d,
@@ -60,7 +60,7 @@ class GhostBottleneck(nn.Module):
                     groups=middle_channels,
                     bias=False,
                 ),
-                get_norm_layer(num_features=middle_channels, norm_type="batch_norm_2d"),
+                get_norm_layers(num_features=middle_channels, norm_name="batch_norm_2d"),
             )
             block.add_module(
                 name="conv_dw_bn",
@@ -89,7 +89,7 @@ class GhostBottleneck(nn.Module):
                     groups=in_channels,  # inchannels
                     bias=False,
                 ),
-                get_norm_layer(num_features=in_channels, norm_type="batch_norm_2d"),
+                get_norm_layers(num_features=in_channels, norm_name="batch_norm_2d"),
                 nn.Conv2d(
                     in_channels=in_channels,
                     out_channels=out_channels,
@@ -97,7 +97,7 @@ class GhostBottleneck(nn.Module):
                     stride=1, # 1
                     bias=False,
                 ),
-                get_norm_layer(num_features=out_channels, norm_type="batch_norm_2d"),
+                get_norm_layers(num_features=out_channels, norm_name="batch_norm_2d"),
             )
 
         self.block = block
@@ -304,7 +304,7 @@ class FFN(nn.Module):
         super(FFN, self).__init__()
 
         self.pre_norm_ffn = nn.Sequential(
-            get_norm_layer(num_features=embed_dim, norm_type=norm_layer),
+            get_norm_layers(num_features=embed_dim, norm_name=norm_layer),
             nn.Conv2d(
                 in_channels=embed_dim,
                 out_channels=ffn_latent_dim,
