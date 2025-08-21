@@ -7,5 +7,6 @@ from . import ACT_LAYERS
 class Sigmoid(nn.Sigmoid):
     def __init__(
             self,
+            **kwargs,
     ) -> None:
         super(Sigmoid, self).__init__()

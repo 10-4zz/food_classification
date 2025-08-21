@@ -7,6 +7,6 @@ from . import ACT_LAYERS
 class HardSigmoid(nn.Hardswish):
     def __init__(
             self,
-            inplace: bool = False
+            inplace: bool = False,
     ) -> None:
         super(HardSigmoid, self).__init__(inplace=inplace)

@@ -11,7 +11,12 @@ NORM_LAYERS = Registry(
 )
 
 
-def get_norm_layers(norm_name: str = 'relu'):
+def get_norm_layers(
+        num_features: int,
+        norm_name: str = 'relu',
+        num_groups: int = 1,
+        momentum: float = 0.1
+):
     """
     Get the Normalization layers by name.
     """
@@ -20,4 +25,10 @@ def get_norm_layers(norm_name: str = 'relu'):
         warnings.warn("Normalization layer not found, using 'Identity' as default.")
         return nn.Identity()
     else:
-        return NORM_LAYERS.get(component_name=norm_name)
+        create_fn = NORM_LAYERS.get(component_name=norm_name)
+        norm_layer = create_fn(
+            num_features=num_features,
+            num_groups=num_groups,
+            momentum=momentum
+        )
+        return norm_layer

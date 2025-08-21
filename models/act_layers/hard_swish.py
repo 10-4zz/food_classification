@@ -7,6 +7,6 @@ from . import ACT_LAYERS
 class HardSwish(nn.Hardswish):
     def __init__(
             self,
-            inplace: bool = False
+            inplace: bool = False,
     ) -> None:
         super(HardSwish, self).__init__(inplace=inplace)

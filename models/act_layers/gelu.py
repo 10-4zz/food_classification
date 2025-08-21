@@ -7,6 +7,7 @@ from . import ACT_LAYERS
 class GeLU(nn.GELU):
     def __init__(
             self,
-            approximate: str = "none"
+            approximate: str = "none",
+            **kwargs,
     ) -> None:
         super(GeLU, self).__init__(approximate=approximate)

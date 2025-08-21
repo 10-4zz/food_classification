@@ -7,6 +7,7 @@ from . import ACT_LAYERS
 class ReLU6(nn.ReLU6):
     def __init__(
             self,
-            inplace: bool = False
+            inplace: bool = False,
+            **kwargs,
     ) -> None:
         super(ReLU6, self).__init__(inplace=inplace)

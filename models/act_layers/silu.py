@@ -7,6 +7,7 @@ from . import ACT_LAYERS
 class SiLU(nn.SiLU):
     def __init__(
             self,
-            inplace: bool = False
+            inplace: bool = False,
+            **kwargs,
     ) -> None:
         super(SiLU, self).__init__(inplace=inplace)

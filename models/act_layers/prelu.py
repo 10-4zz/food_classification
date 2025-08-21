@@ -11,6 +11,7 @@ class PReLU(nn.PReLU):
             self,
             num_parameters: int = 1,
             init: float = 0.25,
+
     ) -> None:
         super(PReLU, self).__init__(
             num_parameters=num_parameters,

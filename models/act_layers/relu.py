@@ -7,6 +7,6 @@ from . import ACT_LAYERS
 class ReLU(nn.ReLU):
     def __init__(
             self,
-            inplace: bool = False
+            inplace: bool = False,
     ) -> None:
         super(ReLU, self).__init__(inplace=inplace)

@@ -11,6 +11,7 @@ class BatchNorm2d(nn.BatchNorm2d):
             self,
             num_features: int,
             momentum: Optional[float] = 0.1,
+            **kwargs
     ):
         super(BatchNorm2d, self).__init__(
             num_features=num_features,
