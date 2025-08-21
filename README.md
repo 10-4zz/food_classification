@@ -79,6 +79,9 @@ AF-Net:
 }
 ```
 
+## Future Plans
+- Add more models for food classification.
+
 ## License
 
 Food Classification is MIT licensed. See the [LICENSE](LICENSE) for details.
