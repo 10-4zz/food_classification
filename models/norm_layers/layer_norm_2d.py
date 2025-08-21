@@ -9,7 +9,7 @@ class LayerNorm2d(nn.GroupNorm):
             self,
             num_groups: int,
             num_channels: int,
-            **kwargs
+            **kwargs,
     ):
         super(LayerNorm2d, self).__init__(
             num_groups=num_groups,
