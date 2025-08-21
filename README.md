@@ -39,8 +39,16 @@ Install other dependencies:
 pip install -r requirements.txt
 ```
 
+## Start Training
+To start training the food classification model, you can run the following command:
+
+```bash
+bash scripts/train.sh
+```
+
 ## Paper Cite
 If you find this project useful in your research, please consider citing:
+
 MobileViTv2:
 ```
 @article{mehta2022separable,
