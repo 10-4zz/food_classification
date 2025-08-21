@@ -31,7 +31,7 @@ Install torch package:
 ```bash
 pip install torch==2.5.0 torchvision==0.20.0 torchaudio==2.5.0 --index-url https://download.pytorch.org/whl/cu118
 ```
-We use CUDA 11.8, if you want to use other versions of CUDA, please refer to the official website: https://pytorch.org/get-started/locally/.
+We use CUDA 11.8, if you want to use other versions of CUDA, please refer to the official website: https://pytorch.org/get-started/previous-versions/.
 
 Install other dependencies:
 
