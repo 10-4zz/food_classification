@@ -5,6 +5,9 @@ import torch
 from torch import Tensor
 from torch import nn as nn
 
+from .act_layers import get_act_layers
+
+
 def auto_pad(k, p=None, d=1):  # kernel, padding, dilation
     # Pad to 'same' shape outputs
     if d > 1:
@@ -12,29 +15,6 @@ def auto_pad(k, p=None, d=1):  # kernel, padding, dilation
     if p is None:
         p = k // 2 if isinstance(k, int) else [x // 2 for x in k]  # auto-pad
     return p
-
-
-def get_act_layer(act_name: str = 'relu'):
-    act_name = act_name.lower()
-    if act_name == 'relu':
-        return nn.ReLU()
-    elif act_name == 'silu' or act_name == 'swish':
-        return nn.SiLU()
-    elif act_name == 'hard_swish':
-        return nn.Hardswish()
-    elif act_name == 'gelu':
-        return nn.GELU()
-    elif act_name == 'hard_sigmoid':
-        return nn.Hardsigmoid()
-    elif act_name == 'leaky_relu':
-        return nn.LeakyReLU()
-    elif act_name == 'prelu':
-        return nn.PReLU()
-    elif act_name == 'relu6':
-        return nn.ReLU6()
-    elif act_name == 'sigmoid':
-        return nn.Sigmoid()
-    return nn.Identity()
 
 
 def get_norm_layer(num_features: int, norm_type: str = 'layer_norm_2d', num_groups: int = 1, momentum: float = 0.1):
@@ -280,7 +260,7 @@ class ShuffleConv(nn.Module):
                 padding_mode=padding_mode,
             ),
             get_norm_layer(num_features=out_channels, norm_type=norm_name) if use_norm else nn.Identity(),
-            get_act_layer(act_name=act_name) if use_act else nn.Identity(),
+            get_act_layers(act_name=act_name) if use_act else nn.Identity(),
         )
 
 

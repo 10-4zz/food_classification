@@ -38,13 +38,17 @@ class Registry:
             if not os.path.isdir(dir_path):
                 continue
             # Traverse all .py files in the directory (excluding __init__.py)
+            if "/" in dir_path:
+                package = dir_path.replace("/", ".")
+            else:
+                package = dir_path
             for filename in os.listdir(dir_path):
                 if filename.endswith(".py") and not filename.startswith("__"):
                     module_name = filename[:-3]  # Remove the .py suffix
                     # Import the module (assuming the directory is in the Python path)
-                    importlib.import_module(f"{dir_path}.{module_name}")
+                    importlib.import_module(f"{package}.{module_name}")
 
-    def register(self, component_name: str):
+    def register(self, component_name: str, another_name: str = None):
         def register_component(component):
             name = component_name
             if name is None:
@@ -53,6 +57,10 @@ class Registry:
             if name in self._registry:
                 raise ValueError(f"Component '{name}' is already registered in {self.registry_name}.")
             self._registry[name] = component
+            if another_name is not None:
+                if another_name in self._registry:
+                    raise ValueError(f"Component '{another_name}' is already registered in {self.registry_name}.")
+                self._registry[another_name] = component
             return component
         return register_component
 
@@ -61,4 +69,12 @@ class Registry:
         if component_name not in self._registry:
             raise KeyError(f"Component '{component_name}' is not registered in {self.registry_name}.")
         return self._registry[component_name]
+
+    def get_keys(self):
+        self._load_components()
+        return self._registry.keys()
+
+    def get_values(self):
+        self._load_components()
+        return self._registry.values()
 

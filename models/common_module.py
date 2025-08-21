@@ -7,7 +7,7 @@ import torch.nn.functional as F
 
 from .common_layer import (
     get_norm_layer,
-    get_act_layer,
+    get_act_layers,
     auto_pad,
     GhostConv2d,
     ShuffleConv,
@@ -158,7 +158,7 @@ class InvertedResidual(nn.Module):
                         bias=False,
                     ),
                     nn.BatchNorm2d(hidden_dim),
-                    get_act_layer(act_name=act_layer),
+                    get_act_layers(act_name=act_layer),
                 )
             )
 
@@ -175,7 +175,7 @@ class InvertedResidual(nn.Module):
                     groups=hidden_dim,
                 ),
                 nn.BatchNorm2d(hidden_dim),
-                get_act_layer(act_name=act_layer),
+                get_act_layers(act_name=act_layer),
             )
         )
 
@@ -312,7 +312,7 @@ class FFN(nn.Module):
                 stride=1,
                 bias=True
             ),
-            get_act_layer(act_name=act_layer),
+            get_act_layers(act_name=act_layer),
             nn.Dropout(ffn_dropout),
             nn.Conv2d(
                 in_channels=ffn_latent_dim,
