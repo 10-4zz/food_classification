@@ -2,6 +2,4 @@ numpy==2.3.2
 PyYAML==6.0.2
 termcolor==3.1.0
 thop==0.1.1.post2209072238
-torch==2.5.0+cu118
-torchvision==0.20.0+cu118
 yacs==0.1.8
