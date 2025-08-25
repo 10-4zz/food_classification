@@ -9,13 +9,13 @@ ACT_LAYERS = Registry(
 )
 
 
-def get_act_layers(act_name: str = 'relu'):
+def get_act_layers(act_name: str = 'relu', **kwargs):
     """
     Get the activation layers by name.
     """
     act_name = act_name.lower()
     if act_name not in ACT_LAYERS.get_keys():
         warnings.warn("Activation layer not found, using 'relu' as default.")
-        return ACT_LAYERS.get(component_name='relu')
+        return ACT_LAYERS.get(component_name='relu')(**kwargs)
     else:
-        return ACT_LAYERS.get(component_name=act_name)
+        return ACT_LAYERS.get(component_name=act_name)(**kwargs)

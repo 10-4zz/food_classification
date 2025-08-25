@@ -60,6 +60,7 @@ class GhostBottleneck(nn.Module):
                     stride=stride,
                     groups=middle_channels,
                     bias=False,
+                    padding=auto_pad(dw_kernel_size, None, 1)
                 ),
                 get_norm_layers(num_features=middle_channels, norm_name="batch_norm_2d"),
             )
@@ -75,6 +76,7 @@ class GhostBottleneck(nn.Module):
                 out_channels=out_channels,
                 kernel_size=kernel_size,
                 stride=1,
+                padding=auto_pad(kernel_size, None, 1)
             ),
         )
 
@@ -89,6 +91,7 @@ class GhostBottleneck(nn.Module):
                     stride=stride,  # stride
                     groups=in_channels,  # inchannels
                     bias=False,
+                    padding=auto_pad(dw_kernel_size, None, 1)
                 ),
                 get_norm_layers(num_features=in_channels, norm_name="batch_norm_2d"),
                 nn.Conv2d(
@@ -97,6 +100,7 @@ class GhostBottleneck(nn.Module):
                     kernel_size=1,
                     stride=1, # 1
                     bias=False,
+                    padding=auto_pad(1, None, 1)
                 ),
                 get_norm_layers(num_features=out_channels, norm_name="batch_norm_2d"),
             )

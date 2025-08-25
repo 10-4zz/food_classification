@@ -9,6 +9,7 @@ It contains the following models:
 - **MobileViTv2**: A lightweight model designed for mobile devices, optimized for speed and efficiency.
 - **EHFR-Net**: A model that combines Inverted Residual Blocks and LP-ViT for enhanced feature extraction and classification performance in food classification task.
 - **AF-Net**: A model that uses the aggregate operation and combines the shuffle module from GS-Net to improve classification accuracy for food classification task.
+- **CGViT**: A lightweight model for fruit and vegetable recognition, which we migrated to food image recognition 
 
 ## Installation
 
@@ -85,6 +86,19 @@ AF-Net:
   pages={1--25},
   year={2024},
   publisher={ACM New York, NY}
+}
+```
+
+CGViT:
+```
+@article{liu2025channel,
+  title={Channel grouping vision transformer for lightweight fruit and vegetable recognition},
+  author={Liu, Chengxu and Min, Weiqing and Song, Jingru and Yang, Yancun and Sheng, Guorui and Yao, Tao and Wang, Lili and Jiang, Shuqiang},
+  journal={Expert Systems with Applications},
+  volume={292},
+  pages={128636},
+  year={2025},
+  publisher={Elsevier}
 }
 ```
 

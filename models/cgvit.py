@@ -398,6 +398,8 @@ class CGViT(nn.Module):
             attn_block = MobileViTBlockV2(
                 in_channels=config['dim'],
                 attn_unit_dim=config['dim'],
+                patch_h=config['patch_h'],
+                patch_w=config['patch_w'],
             )
         else:
             warnings.warn(f"Unknown attention block type: {config['type']}, we will use Identity instead.")
