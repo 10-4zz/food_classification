@@ -118,3 +118,18 @@ class BasicStage(nn.Module):
     def forward(self, x: Tensor) -> Tensor:
         x = self.blocks(x)
         return x
+
+
+def get_config(model_scale: str = 's1'):
+    config = {
+        's1': {
+            'input_channels': 3,
+            'Stage1': {
+                'dim': 64,
+                'depth': 2,
+                'n_div': 1,
+                'mlp_ratio': 4.0,
+                'layer_scale_init_value': 1e-5
+            }
+        }
+    }
