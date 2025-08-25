@@ -104,7 +104,7 @@ CGViT:
 
 ## Future Plans
 - Add more models for food classification.
-- Improve the scripts for training.
+- Improve the scripts.
 
 ## License
 
