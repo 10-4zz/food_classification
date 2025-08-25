@@ -3,7 +3,7 @@
 # For licensing see accompanying LICENSE file.
 # Copyright (C) 2023 Apple Inc. All Rights Reserved.
 #
-# Modified by Iran Zhu
+# Modified by Ian Zhu
 # --------------------------------------------------------
 
 

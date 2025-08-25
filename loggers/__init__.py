@@ -2,7 +2,7 @@
 # Food Classification
 # Copyright (c) 2025 Microsoft
 # Licensed under The MIT License [see LICENSE for details]
-# Written by Iran Zhu
+# Written by Ian Zhu
 # --------------------------------------------------------
 
 from .logger import LoggerController

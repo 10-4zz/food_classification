@@ -5,7 +5,7 @@
 # Written by Ze Liu
 # --------------------------------------------------------'
 # Food Classification Configurations
-# Modified by Iran Zhu
+# Modified by Ian Zhu
 # -----------------------------------------------------------------------
 
 import os
