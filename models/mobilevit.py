@@ -32,6 +32,7 @@ class MobileViTBlock(nn.Module):
         ffn_dropout (Optional[float]): Dropout between FFN layers in transformer. Default: 0.0
         patch_h (Optional[int]): Patch height for unfolding operation. Default: 8
         patch_w (Optional[int]): Patch width for unfolding operation. Default: 8
+        act_layer (Optional[str]): Activation layer. Default: silu
         transformer_norm_layer (Optional[str]): Normalization layer in the transformer block. Default: layer_norm
         conv_ksize (Optional[int]): Kernel size to learn local representations in MobileViT block. Default: 3
         dilation (Optional[int]): Dilation rate in convolutions. Default: 1
