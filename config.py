@@ -196,6 +196,8 @@ def update_config(config, args):
         config.DATA.IMAGE_SIZE = args.image_size
     if args.data_path:
         config.DATA.DATA_PATH = args.data_path
+    if args.model_name:
+        config.MODEL.NAME = args.model_name
     if args.dataset_name:
         config.DATA.DATASET = args.dataset_name
     if args.resume:

@@ -11,6 +11,7 @@ def get_options():
     parser.add_argument('--data_path', type=str, default='./data', help='Path to dataset')
     parser.add_argument('--image_size', type=int, default=224, help='Path to dataset')
     parser.add_argument('--dataset_name', type=str, default='ETHZFOOD101', help='Name of the dataset')
+    parser.add_argument('--model_name', type=str, default='af_net', help='Name of the model')
     parser.add_argument('--cache_mode', type=str, default='no_cache', help='Cache mode for dataset')
     parser.add_argument('--resume', help='resume from checkpoint')
     parser.add_argument('--use_checkpoint', action='store_true', help='Use checkpoint during training')
