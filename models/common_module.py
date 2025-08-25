@@ -21,7 +21,7 @@ class GhostBottleneck(nn.Module):
         self,
         in_channels: int,
         out_channels: int,
-        ratio: Union[int, float],
+        ratio: Union[int, float] = 0.5,
         dw_kernel_size: int = 3,
         dilation: Optional[int] = 1,
         stride: Optional[int] = 1,
