@@ -1,4 +1,3 @@
-import math
 from typing import Optional, List, Union, Tuple
 
 import torch
@@ -50,7 +49,7 @@ class GlobalPool(nn.Module):
         self.pool_type = pool_type
         self.keep_dim = keep_dim
 
-    def _global_pool(self, x: Tensor, dims: List):
+    def _global_pool(self, x: Tensor, dims: List) -> Tensor:
         if self.pool_type == "rms":  # root mean square
             x = x ** 2
             x = torch.mean(x, dim=dims, keepdim=self.keep_dim)
@@ -77,7 +76,11 @@ class GlobalPool(nn.Module):
 
 
 class DropPath(nn.Module):
-    def __init__(self, drop_prob: float = 0., **kwargs):
+    def __init__(
+            self,
+            drop_prob: float = 0.,
+            **kwargs
+    ) -> None:
         super().__init__()
         self.drop_prob = drop_prob
 
@@ -105,7 +108,7 @@ class GhostConv2d(nn.Module):
             kernel_size: int = 1,
             stride: int = 1,
             groups: int = 1,
-    ):
+    ) -> None:
         super().__init__()
         hidden_channels = out_channels // 2  # hidden channels
         self.cv1 = nn.Sequential(
@@ -133,7 +136,7 @@ class GhostConv2d(nn.Module):
             nn.Hardswish()
         )
 
-    def forward(self, x):
+    def forward(self, x) -> Tensor:
         y = self.cv1(x)
         return torch.cat((y, self.cv2(y)), 1)
 
@@ -151,7 +154,7 @@ class SeparableConv(nn.Module):
             use_norm: bool = True,
             use_act: bool = True,
             force_map_channels: bool = True
-    ):
+    ) -> None:
         super().__init__()
 
         self.block = nn.Sequential()
@@ -193,7 +196,7 @@ class SeparableConv(nn.Module):
             )
             self.block.add_module("pw_conv", self.pw_conv)
 
-    def forward(self, x):
+    def forward(self, x) -> Tensor:
         x = self.dw_conv(x)
         if self.pw_conv:
             x = self.pw_conv(x)
@@ -216,7 +219,7 @@ class ShuffleConv(nn.Module):
             norm_name: Optional[Union[str, type, object]] = None,
             use_act: Optional[bool] = True,
             act_name: Optional[Union[str, type, object]] = None,
-    ):
+    ) -> None:
         super().__init__()
         self.h_groups = h_groups
         self.w_groups = w_groups
@@ -255,7 +258,7 @@ class ShuffleConv(nn.Module):
         return self.block(y)
 
     @staticmethod
-    def shuffle_index(len: int, groups: int):
+    def shuffle_index(len: int, groups: int) -> Tensor:
         if len // groups < 2:
             return torch.tensor([i for i in range(len)])
         elif len % groups == 0:
@@ -323,3 +326,29 @@ class ShuffleSeparableConv(SeparableConv):
             use_norm=True,
             use_act=False,
         )
+
+
+class PartialConv(nn.Module):
+    def __init__(
+            self,
+            in_channels: int,
+            divide_num: int,
+    ) -> None:
+        super().__init__()
+        self.hidden_channels = in_channels // divide_num
+        self.untorched_channels = in_channels - self.hidden_channels
+        self.partial_conv = nn.Conv2d(
+            in_channels=self.hidden_channels,
+            out_channels=self.hidden_channels,
+            kernel_size=3,
+            stride=1,
+            padding=auto_pad(3, None, 1),
+            bias=False
+        )
+
+    def forward(self, x: Tensor) -> Tensor:
+        x1, x2 = torch.split(x, [self.hidden_channels, self.untorched_channels], dim=1)
+        x1 = self.partial_conv(x1)
+        x = torch.cat((x1, x2), dim=1)
+
+        return x

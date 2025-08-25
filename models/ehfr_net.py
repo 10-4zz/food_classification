@@ -10,14 +10,14 @@ import torch.nn.functional as F
 from torch import Tensor
 
 from .common_layer import (
-    get_norm_layer,
-    get_act_layer,
+    get_norm_layers,
+    get_act_layers,
     GlobalPool
 )
 from .common_module import (
     InvertedResidual,
     SeparableSelfAttention,
-    FFN
+    FFNConv,
 )
 from . import MODEL_REGISTRIES
 from utils.math_utils import make_divisible, bound_fn
@@ -44,7 +44,7 @@ class LPViTBlock(nn.Module):
         )
 
         self.pre_norm_attn1 = nn.Sequential(
-            get_norm_layer(num_features=embed_dim, norm_type=norm_layer),
+            get_norm_layers(num_features=embed_dim, norm_name=norm_layer),
             attn_unit1,
             nn.Dropout(dropout),
         )
@@ -56,12 +56,12 @@ class LPViTBlock(nn.Module):
         )
 
         self.pre_norm_attn2 = nn.Sequential(
-            get_norm_layer(num_features=embed_dim, norm_type=norm_layer),
+            get_norm_layers(num_features=embed_dim, norm_name=norm_layer),
             attn_unit2,
             nn.Dropout(dropout),
         )
 
-        self.pre_norm_ffn = FFN(
+        self.pre_norm_ffn = FFNConv(
             embed_dim=embed_dim,
             ffn_latent_dim=ffn_latent_dim,
             ffn_dropout=ffn_dropout,
@@ -218,7 +218,7 @@ class HBlock(nn.Module):
             for block_idx in range(n_layers)
         ]
         global_acq.append(
-            get_norm_layer(num_features=d_model, norm_type=attn_norm_layer),
+            get_norm_layers(num_features=d_model, norm_name=attn_norm_layer),
         )
 
         return nn.Sequential(*global_acq), d_model

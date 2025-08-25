@@ -12,14 +12,14 @@ from torch import Tensor, nn
 from torch.nn import functional as F
 
 from .common_layer import (
-    get_act_layer,
-    get_norm_layer,
+    get_act_layers,
+    get_norm_layers,
     GlobalPool,
 )
 
 from .common_module import (
     SeparableSelfAttention,
-    FFN,
+    FFNConv,
     InvertedResidual,
 )
 
@@ -61,12 +61,12 @@ class LinearAttnFFN(nn.Module):
         )
 
         self.pre_norm_attn = nn.Sequential(
-            get_norm_layer(num_features=embed_dim, norm_type=norm_layer),
+            get_norm_layers(num_features=embed_dim, norm_name=norm_layer),
             attn_unit,
             nn.Dropout(p=dropout),
         )
 
-        self.pre_norm_ffn = FFN(
+        self.pre_norm_ffn = FFNConv(
             embed_dim=embed_dim,
             ffn_latent_dim=ffn_latent_dim,
             ffn_dropout=ffn_dropout,
@@ -253,7 +253,7 @@ class MobileViTBlockV2(nn.Module):
             for block_idx in range(n_layers)
         ]
         global_rep.append(
-            get_norm_layer(num_features=d_model, norm_type=attn_norm_layer)
+            get_norm_layers(num_features=d_model, norm_name=attn_norm_layer)
         )
 
         return nn.Sequential(*global_rep), d_model

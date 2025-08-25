@@ -6,7 +6,7 @@ from torch import Tensor, nn
 
 from .common_layer import (
     auto_pad,
-    get_norm_layer,
+    get_norm_layers,
     GlobalPool,
     SeparableConv,
     ShuffleConv,
@@ -112,7 +112,7 @@ class AggregateBlock(nn.Module):
                 add_bias=add_bias,
             )
 
-        self.norm_layer = get_norm_layer(num_features=in_channels, norm_type="batch_norm_2d") \
+        self.norm_layer = get_norm_layers(num_features=in_channels, norm_name="batch_norm_2d") \
             if use_norm else None
 
         self.act_layer = nn.Hardswish() if use_act else None
