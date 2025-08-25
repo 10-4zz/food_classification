@@ -8,10 +8,10 @@ class LayerNorm2d(nn.GroupNorm):
     def __init__(
             self,
             num_groups: int,
-            num_channels: int,
+            num_features: int,
             **kwargs
     ):
         super(LayerNorm2d, self).__init__(
             num_groups=num_groups,
-            num_channels=num_channels,
+            num_channels=num_features,
         )

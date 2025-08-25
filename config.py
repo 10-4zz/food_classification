@@ -39,7 +39,7 @@ _C.DATA.NUM_WORKERS = 8
 # -----------------------------------------------------------------------------
 _C.MODEL = CN()
 # Model name
-_C.MODEL.NAME = 'af_net'
+_C.MODEL.NAME = 'cgvit'
 # Checkpoint to resume, could be overwritten by command line argument
 _C.MODEL.RESUME = ''
 # Number of classes, overwritten in data preparation
@@ -62,6 +62,9 @@ _C.MOBILEVITV2.SCALE = 1.0
 
 _C.AF_NET = CN()
 _C.AF_NET.SCALE = 1.0
+
+_C.CGVIT = CN()
+_C.CGVIT.SCALE = 's1'
 
 # -----------------------------------------------------------------------------
 # Training settings

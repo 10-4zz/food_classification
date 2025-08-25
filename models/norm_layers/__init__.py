@@ -13,7 +13,7 @@ NORM_LAYERS = Registry(
 
 def get_norm_layers(
         num_features: int,
-        norm_name: str = 'relu',
+        norm_name: str = 'layer_norm_2d',
         num_groups: int = 1,
         momentum: float = 0.1
 ):
