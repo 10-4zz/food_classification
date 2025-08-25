@@ -1,5 +1,11 @@
-import math
-from typing import Sequence, Optional, Tuple, Union, List
+# --------------------------------------------------------
+# Food Classification
+# Copyright (c) 2025 Microsoft
+# Licensed under The MIT License [see LICENSE for details]
+# Written by Iran Zhu
+# --------------------------------------------------------
+
+from typing import Sequence, Optional, Tuple, Union
 
 import torch
 from torch import Tensor, nn

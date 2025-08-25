@@ -1,5 +1,13 @@
+# --------------------------------------------------------
+# Food Classification
+# Copyright (c) 2025 Microsoft
+# Licensed under The MIT License [see LICENSE for details]
+# Written by Iran Zhu
+# --------------------------------------------------------
+
+
 import math
-from typing import Optional, List, Union, Tuple, Sequence, Dict
+from typing import Optional, Union, Tuple, Sequence, Dict
 
 import numpy as np
 
