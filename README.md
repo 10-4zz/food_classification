@@ -10,6 +10,7 @@ It contains the following models:
 - **EHFR-Net**: A model that combines Inverted Residual Blocks and LP-ViT for enhanced feature extraction and classification performance in food classification task.
 - **AF-Net**: A model that uses the aggregate operation and combines the shuffle module from GS-Net to improve classification accuracy for food classification task.
 - **CGViT**: A lightweight model for fruit and vegetable recognition, which we migrated to food image recognition 
+- **GS-Net**: A model that utilizes group shuffle operations to enhance global feature representation and improve classification accuracy.
 
 ## Installation
 
