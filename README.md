@@ -47,7 +47,7 @@ To start training the food classification model, you can run the following comma
 We provide the food5 dataset which is a subset of ETHZ Food-101 dataset for training and testing. You can download the dataset from [Google Drive](https://drive.google.com/file/d/1nd9sTutDwIb1USEdOQk1oSx43e2S8sec/view?usp=sharing).
 
 ```bash
-bash scripts/food101_af_net.sh
+bash scripts/food5_af_net.sh
 ```
 You can define your own training script in the `scripts` directory. The training script should include the necessary commands to train the model, such as specifying the dataset, model name ect.
 
