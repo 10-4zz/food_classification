@@ -191,6 +191,7 @@ class InvertedResidual(nn.Module):
     ) -> None:
         assert stride in [1, 2], "The stride should be 1 or 2 in the inverted residual block."
         hidden_dim = make_divisible(int(round(in_channels * expand_ratio)), 8)
+        self.hidden_dim = hidden_dim
         super(InvertedResidual, self).__init__()
 
         block = []

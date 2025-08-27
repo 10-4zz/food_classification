@@ -232,6 +232,12 @@ class ShuffleConv(nn.Module):
         self.h_groups = h_groups
         self.w_groups = w_groups
 
+        if norm_name is None:
+            norm_name = "batch_norm_2d"
+
+        if act_name is None:
+            act_name ="relu"
+
         self.block = nn.Sequential(
             nn.Conv2d(
                 in_channels=in_channels,
