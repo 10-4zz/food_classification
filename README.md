@@ -76,6 +76,21 @@ EHFR-Net:
 }
 ```
 
+GS-Net:
+```
+@ARTICLE{10517765,
+  author={Sheng, Guorui and Min, Weiqing and Yao, Tao and Song, Jingru and Yang, Yancun and Wang, Lili and Jiang, Shuqiang},
+  journal={IEEE Transactions on AgriFood Electronics}, 
+  title={Lightweight Food Image Recognition With Global Shuffle Convolution}, 
+  year={2024},
+  volume={2},
+  number={2},
+  pages={392-402},
+  keywords={Climate change;Global warming;Deep learning;Food products;Food security;Consumer behavior;Image recognition;Smart phones;Artificial neural networks;Carbon dioxide;Climate change and global warming;deep learning;food recognition;global shuffle convolution;lightweight;long-range dependence},
+  doi={10.1109/TAFE.2024.3386713}}
+
+```
+
 AF-Net:
 ```
 @article{yang2024lightweight,
