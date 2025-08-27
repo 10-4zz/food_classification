@@ -25,14 +25,14 @@ def build_loader(config, logger: logging.Logger, transform=None):
         transform=transform['train'] if transform is not None else None
     )
     config.freeze()
-    print(f"Successfully build train dataset")
+    logger.info(f"Successfully build train dataset")
     dataset_val, _ = build_dataset(
         is_train=False,
         config=config,
         logger=logger,
         transform=transform['val'] if transform is not None else None
     )
-    print(f"Successfully build val dataset")
+    logger.info(f"Successfully build val dataset")
 
     indices = np.arange(len(dataset_train))
     sampler_train = SubsetRandomSampler(indices)

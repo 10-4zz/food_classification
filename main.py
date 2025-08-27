@@ -286,7 +286,7 @@ def main():
                                     max(max_accuracy_e, acc1_e), optimizer, lr_scheduler, logger, name='max_acc')
         max_accuracy = max(max_accuracy, acc1)
         logger.info(f'Max accuracy: {max_accuracy:.2f}%')
-        with open(os.path.join(args.output, 'max_acc.log'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(args.output_dir, 'max_acc.log'), 'w', encoding='utf-8') as f:
             f.write(f'Max accuracy: {max_accuracy:.2f}%')
 
         if model_ema is not None and not args.model_ema_force_cpu:

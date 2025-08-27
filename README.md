@@ -44,6 +44,8 @@ pip install -r requirements.txt
 ## Start Training
 To start training the food classification model, you can run the following command:
 
+We provide the food5 dataset which is a subset of ETHZ Food-101 dataset for training and testing. You can download the dataset from [Google Drive](https://drive.google.com/file/d/1nd9sTutDwIb1USEdOQk1oSx43e2S8sec/view?usp=sharing).
+
 ```bash
 bash scripts/food101_af_net.sh
 ```
