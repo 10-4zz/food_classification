@@ -16,14 +16,18 @@ from torchvision.datasets.folder import ImageFolder, default_loader
 from .transform import build_transform
 
 
-def build_dataset(is_train, config, logger: logging.Logger, transform=None, ):
+def build_dataset(is_train, config, logger: logging.Logger, transform=None):
     if transform is None:
         logger.info("Building dataset with default transform.")
         transform = build_transform(is_train, config)
     else:
         logger.info("Building dataset with custom transform.")
         transform = transform
-    if config.DATA.DATASET == 'ETHZFOOD101':
+    if config.DATA.DATASER == 'FOOD5':
+        root = config.DATA.DATA_PATH
+        dataset = Food101DataFolder(root, is_train=is_train, transform=transform)
+        nb_classes = 5
+    elif config.DATA.DATASET == 'ETHZFOOD101':
         root = config.DATA.DATA_PATH
         dataset = Food101DataFolder(root, is_train=is_train, transform=transform)
         nb_classes = 101
