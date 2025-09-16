@@ -5,5 +5,5 @@ python main.py \
     --dataset_name FOOD5 \
     --batch_size 16 \
     --image_size 224 \
-    --output_dir ./output/food101/ \
-    --tag food101_af_net
+    --output_dir ./output/food5/ \
+    --tag food5_af_net
