@@ -1,6 +1,10 @@
-"""
-Define logger for this project.
-"""
+# --------------------------------------------------------
+# Food Classification
+# Copyright (c) 2025 Microsoft
+# Licensed under The MIT License [see LICENSE for details]
+# Written by Ian Zhu
+# --------------------------------------------------------
+
 import os
 import sys
 import time

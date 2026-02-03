@@ -13,11 +13,12 @@ from torch.amp import autocast, GradScaler
 
 from config import get_config
 from data import build_loader
-from loggers import LoggerController, summery_model, throughput
 from lr_scheduler import build_scheduler
 from loss import SoftTargetCrossEntropy, LabelSmoothingCrossEntropy
 from models import build_model
 from optimizer import build_optimizer
+
+from utils import logger
 from utils import get_options, ModelEma, AverageMeter, accuracy, get_grad_norm, save_checkpoint_ema_new
 
 
@@ -198,12 +199,6 @@ def main():
     args.model_ema_decay = args.model_ema_decay ** (config.DATA.BATCH_SIZE / 4096.0)
 
     os.makedirs(config.OUTPUT, exist_ok=True)
-    logger_controller = LoggerController(log_file_name="log.txt" ,output_dir=config.OUTPUT)
-    logger = logger_controller.create_logger(
-        logger_name='food_classification',
-        log_level=logging.DEBUG,
-        format_type="default"
-    )
 
     path = os.path.join(config.OUTPUT, "config.json")
     with open(path, "w") as f:
