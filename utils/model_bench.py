@@ -4,8 +4,6 @@
 # Licensed under The MIT License [see LICENSE for details]
 # Written by Ian Zhu
 # --------------------------------------------------------
-
-import logging
 from copy import deepcopy
 from typing import Callable, Any
 import time
@@ -19,10 +17,11 @@ except:
                       "or you set a value to the virtual_input."
                       "eg. torch.empty((1, 3, 224, 224), device=device)")
 
+from utils import logger
+
 
 def summery_model(
     model: torch.nn.Module,
-    logger: logging.Logger,
     input_virtual: Any = None,
     image_size: int = 224,
     unit_param: str = "M",
@@ -86,7 +85,6 @@ def summery_model(
 def throughput(
         data_loader: torch.utils.data.DataLoader,
         model: torch.nn.Module,
-        logger: logging.Logger,
 ):
     """
     Args:

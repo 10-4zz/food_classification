@@ -8,15 +8,15 @@
 import os
 from typing import Any, Callable, Optional, Tuple
 
-import logging
-
 from torchvision.datasets import VisionDataset
 from torchvision.datasets.folder import ImageFolder, default_loader
+
+from utils import logger
 
 from .transform import build_transform
 
 
-def build_dataset(is_train, config, logger: logging.Logger, transform=None):
+def build_dataset(is_train, config, transform=None):
     if transform is None:
         logger.info("Building dataset with default transform.")
         transform = build_transform(is_train, config)

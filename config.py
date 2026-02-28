@@ -18,6 +18,14 @@ _C = CN()
 _C.BASE = ['']
 
 # -----------------------------------------------------------------------------
+# Common settings
+# -----------------------------------------------------------------------------
+_C.COMMON = CN()
+_C.COMMON.SEED = 42
+_C.COMMON.CUDNN_DETERMINISTIC = True
+_C.COMMON.CUDNN_DBENCHMARK = False
+
+# -----------------------------------------------------------------------------
 # Data settings
 # -----------------------------------------------------------------------------
 _C.DATA = CN()
@@ -157,8 +165,6 @@ _C.TAG = 'default'
 _C.SAVE_FREQ = 100
 # Frequency to logging info
 _C.PRINT_FREQ = 100
-# Fixed random seed
-_C.SEED = 0
 # Perform evaluation only, overwritten by command line argument
 _C.EVAL_MODE = False
 # Test throughput only, overwritten by command line argument

@@ -4,8 +4,6 @@ import numpy as np
 import time
 import datetime
 
-import logging
-
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
@@ -19,7 +17,9 @@ from models import build_model
 from optimizer import build_optimizer
 
 from utils import logger
+from utils.model_bench import summery_model, throughput
 from utils import get_options, ModelEma, AverageMeter, accuracy, get_grad_norm, save_checkpoint_ema_new
+from utils.common_utils import set_random_seed
 
 
 def get_opts_config():
@@ -31,16 +31,7 @@ def get_opts_config():
     return args, config
 
 
-def setup_seed(seed: int):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    cudnn.enabled = True
-    cudnn.benchmark = True
-
-
-def train_one_epoch(config, model, model_ema, criterion, data_loader, optimizer, epoch, mixup_fn, lr_scheduler, logger,
+def train_one_epoch(config, model, model_ema, criterion, data_loader, optimizer, epoch, mixup_fn, lr_scheduler,
                     total_epochs, mesa=1.0):
     model.train()
     optimizer.zero_grad()
@@ -131,7 +122,7 @@ def train_one_epoch(config, model, model_ema, criterion, data_loader, optimizer,
 
 
 @torch.no_grad()
-def validate(config, data_loader, model, logger):
+def validate(config, data_loader, model):
     criterion = nn.CrossEntropyLoss()
     model.eval()
 
@@ -178,10 +169,17 @@ def validate(config, data_loader, model, logger):
 
 
 def main():
+    log_config = {
+        'save_log': True,
+        'show_time': True,
+        'log_path': "./output/log",
+        'log_file_name': None,  # None means the log file name will be set as time.
+        'log_level': logger.INFO  # 0: Debug, 1: Warning, 2: info, 3: log
+    }
+    logger.set_logger(config=log_config)
     args, config = get_opts_config()
 
-    seed = config.SEED
-    setup_seed(seed=seed)
+    set_random_seed()
 
     # linear scale the learning rate according to total batch size, may not be optimal
     linear_scaled_lr = config.TRAIN.BASE_LR * config.DATA.BATCH_SIZE / 512.0
@@ -216,7 +214,6 @@ def main():
     logger.info(str(model))
     summery_model(
         model=model,
-        logger=logger,
         image_size=config.DATA.IMAGE_SIZE,
     )
 
@@ -253,7 +250,7 @@ def main():
             return
 
     if config.THROUGHPUT_MODE:
-        throughput(data_loader_val, model, logger)
+        throughput(data_loader_val, model)
         return
 
     logger.info("Start training")

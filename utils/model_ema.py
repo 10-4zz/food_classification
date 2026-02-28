@@ -2,14 +2,14 @@
 
 Hacked together by / Copyright 2020 Ross Wightman
 """
-import logging
 from collections import OrderedDict
 from copy import deepcopy
 
 import torch
 import torch.nn as nn
 
-_logger = logging.getLogger(__name__)
+from utils import logger
+
 
 
 class ModelEma:
@@ -61,9 +61,9 @@ class ModelEma:
                     name = k
                 new_state_dict[name] = v
             self.ema.load_state_dict(new_state_dict)
-            _logger.info("Loaded state_dict_ema")
+            logger.info("Loaded state_dict_ema")
         else:
-            _logger.warning("Failed to find state_dict_ema, starting from loaded model weights")
+            logger.warning("Failed to find state_dict_ema, starting from loaded model weights")
 
     def update(self, model):
         # correct a mismatch in state dict keys
