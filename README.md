@@ -24,7 +24,7 @@ cd food_classification
 Create environment:
 
 ```bash
-conda create -n food_classification python=3.9
+conda create -n food_classification python=3.9 -y
 conda activate food_classification
 ```
 
