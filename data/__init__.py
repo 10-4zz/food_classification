@@ -15,13 +15,14 @@ from .dataset import build_dataset
 from .sampler import SubsetRandomSampler
 from .mixup import Mixup
 
+from utils import logger
 
-def build_loader(config, logger: logging.Logger, transform=None):
+
+def build_loader(config, transform=None):
     config.defrost()
     dataset_train, config.MODEL.NUM_CLASSES = build_dataset(
         is_train=True,
         config=config,
-        logger=logger,
         transform=transform['train'] if transform is not None else None
     )
     config.freeze()
@@ -29,7 +30,6 @@ def build_loader(config, logger: logging.Logger, transform=None):
     dataset_val, _ = build_dataset(
         is_train=False,
         config=config,
-        logger=logger,
         transform=transform['val'] if transform is not None else None
     )
     logger.info(f"Successfully build val dataset")

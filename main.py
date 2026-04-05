@@ -176,10 +176,10 @@ def main():
         'log_file_name': None,  # None means the log file name will be set as time.
         'log_level': logger.INFO  # 0: Debug, 1: Warning, 2: info, 3: log
     }
-    logger.set_logger(config=log_config)
+    logger.set_logger(log_config=log_config)
     args, config = get_opts_config()
 
-    set_random_seed()
+    set_random_seed(config)
 
     # linear scale the learning rate according to total batch size, may not be optimal
     linear_scaled_lr = config.TRAIN.BASE_LR * config.DATA.BATCH_SIZE / 512.0
@@ -205,7 +205,7 @@ def main():
 
     logger.info(config.dump())
 
-    _, dataset_val, data_loader_train, data_loader_val, mixup_fn = build_loader(config=config, logger=logger)
+    _, dataset_val, data_loader_train, data_loader_val, mixup_fn = build_loader(config=config)
 
     logger.info(f"Creating model:{config.MODEL.NAME}")
     model = build_model(config=config)
@@ -243,7 +243,7 @@ def main():
             decay=args.model_ema_decay,
             device='cpu' if args.model_ema_force_cpu else '',
             resume=config.MODEL.RESUME)
-        acc1_e, acc5_e, loss_e = validate(config, data_loader_val, model_ema.ema, logger)
+        acc1_e, acc5_e, loss_e = validate(config, data_loader_val, model_ema.ema)
         torch.cuda.empty_cache()
         logger.info(f"Accuracy of the ema network on the {len(dataset_val)} test images: {acc1_e:.1f}%")
         if config.EVAL_MODE:
@@ -259,12 +259,12 @@ def main():
         data_loader_train.sampler.set_epoch(epoch)
 
         train_one_epoch(config, model, model_ema, criterion, data_loader_train, optimizer, epoch, mixup_fn,
-                        lr_scheduler, logger, total_epochs,
+                        lr_scheduler, total_epochs,
                         mesa=config.AUG.MESA if epoch >= int(0.25 * total_epochs) else -1.0)
-        acc1, acc5, loss = validate(config, data_loader_val, model, logger)
+        acc1, acc5, loss = validate(config, data_loader_val, model)
         logger.info(f"Accuracy of the network on the {len(dataset_val)} test images: {acc1:.1f}%")
         if model_ema is not None and not args.model_ema_force_cpu:
-            acc1_e, acc5_e, loss_e = validate(config, data_loader_val, model_ema.ema, logger)
+            acc1_e, acc5_e, loss_e = validate(config, data_loader_val, model_ema.ema)
             logger.info(f"Accuracy of the ema network on the {len(dataset_val)} test images: {acc1_e:.1f}%")
         else:
             acc1_e, acc5_e, loss_e = 0, 0, 0
